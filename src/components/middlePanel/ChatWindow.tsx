@@ -31,7 +31,6 @@ import {
 import { useState, useRef, useEffect } from "react";
 import {
   useSelectedThread,
-  //   useMessages,
   useChatStore,
   type ChatMessage,
 } from "../../hooks/useChatStore";
@@ -89,8 +88,8 @@ const MessageBubble = ({ message }: { message: ChatMessage }) => {
           sx={{
             p: 2,
             borderRadius: 2,
-            backgroundColor: isUserMessage ? "#f3f4f6" : "white",
-            color: isUserMessage ? "text.primary" : "text.primary",
+            backgroundColor: isUserMessage ? "#3b82f6" : "#f3f4f6",
+            color: isUserMessage ? "white" : "#111827",
             border: "1px solid #e2e8f0",
           }}
         >
