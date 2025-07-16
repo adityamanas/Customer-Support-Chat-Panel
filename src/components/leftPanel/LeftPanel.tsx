@@ -120,7 +120,7 @@ export function LeftPanel() {
           }}
         />
       </Box>
-      {/* Filter Sections */}
+
       <Box sx={{ flex: 1, overflow: "auto", px: 1 }}>
         {filterSections.map((section, sectionIndex) => (
           <Box sx={{ mb: 3 }} key={sectionIndex}>
@@ -147,26 +147,17 @@ export function LeftPanel() {
               </Typography>
             </Box>
             <List dense sx={{ p: 0 }}>
-              {section.items.map(
-                (item: {
-                  label: string;
-                  count: number;
-                  value: string;
-                  icon?: any;
-                }) => (
+              {section.items.map((item: any) => {
+                const isSelected = selectedFilters[section.type] === item.value;
+                return (
                   <ListItem
                     disableGutters
                     key={item.value}
                     sx={{ p: 0, mb: 0.5 }}
                   >
                     <ListItemButton
-                      selected={selectedFilters[section.type] === item.value}
-                      onClick={() =>
-                        setFilter(
-                          section.type as keyof typeof selectedFilters,
-                          item.value
-                        )
-                      }
+                      selected={isSelected}
+                      onClick={() => setFilter(section.type, item.value)}
                       sx={{
                         borderRadius: 1,
                         py: 0.75,
@@ -197,10 +188,7 @@ export function LeftPanel() {
                         primary={item.label}
                         primaryTypographyProps={{
                           fontSize: "0.875rem",
-                          fontWeight:
-                            selectedFilters[section.type] === item.value
-                              ? 500
-                              : 400,
+                          fontWeight: isSelected ? 500 : 400,
                           color: "#374151",
                         }}
                       />
@@ -216,70 +204,12 @@ export function LeftPanel() {
                       </Typography>
                     </ListItemButton>
                   </ListItem>
-                  // <ListItem
-                  //   key={item.value}
-                  //   // component="button"
-                  //   selected={selectedFilters[section.type] === item.value}
-                  //   onClick={() =>
-                  //     setFilter(
-                  //       section.type as keyof typeof selectedFilters,
-                  //       item.value
-                  //     )
-                  //   }
-                  //   sx={{
-                  //     borderRadius: 1,
-                  //     mb: 0.5,
-                  //     py: 0.75,
-                  //     px: 1,
-                  //     "&.Mui-selected": {
-                  //       backgroundColor: "#eff6ff",
-                  //       "&:hover": {
-                  //         backgroundColor: "#dbeafe",
-                  //       },
-                  //     },
-                  //     "&:hover": {
-                  //       backgroundColor: "#f9fafb",
-                  //     },
-                  //   }}
-                  // >
-                  //   {item.icon && (
-                  //     <Box
-                  //       sx={{ mr: 1.5, display: "flex", alignItems: "center" }}
-                  //     >
-                  //       <item.icon sx={{ fontSize: 16, color: "#6b7280" }} />
-                  //     </Box>
-                  //   )}
-                  //   <ListItemText
-                  //     primary={item.label}
-                  //     primaryTypographyProps={{
-                  //       fontSize: "0.875rem",
-                  //       fontWeight:
-                  //         selectedFilters[
-                  //           section.type as keyof typeof selectedFilters
-                  //         ] === item.value
-                  //           ? 500
-                  //           : 400,
-                  //       color: "#374151",
-                  //     }}
-                  //   />
-                  //   <Typography
-                  //     variant="caption"
-                  //     sx={{
-                  //       color: "#6b7280",
-                  //       fontSize: "0.75rem",
-                  //       fontWeight: 500,
-                  //     }}
-                  //   >
-                  //     {item.count}
-                  //   </Typography>
-                  // </ListItem>
-                )
-              )}
+                );
+              })}
             </List>
           </Box>
         ))}
 
-        {/* Agents Section */}
         <Box>
           <Box
             sx={{ px: 1, mb: 1, display: "flex", alignItems: "center", gap: 1 }}
@@ -317,7 +247,9 @@ export function LeftPanel() {
                       />
                     }
                   >
-                    <Avatar src={agent.avatar} sx={{ width: 28, height: 28 }} />
+                    <Avatar src={agent.avatar} sx={{ width: 28, height: 28 }}>
+                      {agent.name.charAt(0)}
+                    </Avatar>
                   </Badge>
                 </ListItemAvatar>
                 <ListItemText

@@ -82,7 +82,6 @@ export function SlashCommandMenu({ open, onSelect }: SlashCommandMenuProps) {
         {slashCommands.map((cmd) => (
           <ListItem
             key={cmd.command}
-            // component="button"
             onClick={() => onSelect(cmd.command, cmd.template)}
             sx={{
               borderRadius: 1,

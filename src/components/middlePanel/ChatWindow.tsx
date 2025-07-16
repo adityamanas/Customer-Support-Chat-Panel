@@ -8,14 +8,9 @@ import {
   InputAdornment,
   Paper,
   Chip,
-  Divider,
   Badge,
-  List,
-  ListItem,
-  ListItemText,
 } from "@mui/material";
 import {
-  Send,
   AttachFile,
   EmojiEmotions,
   TextSnippet,
@@ -23,10 +18,6 @@ import {
   Cancel,
   CheckCircle,
   MoreVert,
-  WhatsApp,
-  Sms,
-  Instagram,
-  Language,
 } from "@mui/icons-material";
 import { useState, useRef, useEffect } from "react";
 import {
@@ -127,145 +118,10 @@ const MessageBubble = ({ message }: { message: ChatMessage }) => {
   );
 };
 
-// Helper function to format timestamps
 const formatMessageTime = (date: Date): string => {
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 };
 
-// Helper function to format date headers
-const formatDateHeader = (date: Date): string => {
-  return date.toLocaleDateString([], {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
-};
-
-// Helper function to group messages by date
-const groupMessagesByDate = (messages: ChatMessage[]) => {
-  const groups: { [key: string]: ChatMessage[] } = {};
-
-  messages.forEach((message) => {
-    const dateKey = message.timestamp.toDateString();
-    if (!groups[dateKey]) {
-      groups[dateKey] = [];
-    }
-    groups[dateKey].push(message);
-  });
-
-  return Object.entries(groups).map(([dateKey, messages]) => ({
-    date: new Date(dateKey),
-    messages,
-  }));
-};
-
-// Helper function to get channel icon
-const getChannelIcon = (channel: string) => {
-  switch (channel) {
-    case "WhatsApp":
-      return <WhatsApp sx={{ color: "#25D366" }} />;
-    case "SMS":
-      return <Sms sx={{ color: "#2563eb" }} />;
-    case "Instagram":
-      return <Instagram sx={{ color: "#E1306C" }} />;
-    case "Web":
-      return <Language sx={{ color: "#64748b" }} />;
-    default:
-      return <Language sx={{ color: "#64748b" }} />;
-  }
-};
-
-// Message component
-const Message = ({ message }: { message: ChatMessage }) => {
-  const isUserMessage = message.sender === "user";
-  const isSystemMessage = message.sender === "system";
-
-  if (isSystemMessage) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          my: 2,
-        }}
-      >
-        <Chip
-          label={message.content}
-          size="small"
-          sx={{
-            backgroundColor: "#f3f4f6",
-            color: "#6b7280",
-            fontSize: "0.75rem",
-          }}
-        />
-      </Box>
-    );
-  }
-
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: isUserMessage ? "row" : "row-reverse",
-        mb: 2,
-        maxWidth: "80%",
-        alignSelf: isUserMessage ? "flex-start" : "flex-end",
-      }}
-    >
-      {isUserMessage && (
-        <Avatar
-          sx={{ width: 32, height: 32, mr: 1 }}
-          alt="User"
-          src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
-            "User"
-          )}&background=random`}
-        />
-      )}
-      <Box>
-        <Paper
-          elevation={0}
-          sx={{
-            p: 1.5,
-            borderRadius: 2,
-            backgroundColor: isUserMessage ? "#f3f4f6" : "#2563eb",
-            color: isUserMessage ? "text.primary" : "white",
-            maxWidth: "100%",
-          }}
-        >
-          <Typography variant="body2">{message.content}</Typography>
-        </Paper>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: isUserMessage ? "flex-start" : "flex-end",
-            alignItems: "center",
-            mt: 0.5,
-          }}
-        >
-          <Typography variant="caption" color="text.secondary">
-            {formatMessageTime(message.timestamp)}
-          </Typography>
-          {!isUserMessage && message.status && (
-            <CheckCircle
-              sx={{
-                ml: 0.5,
-                fontSize: 12,
-                color:
-                  message.status === "read"
-                    ? "#22c55e"
-                    : message.status === "delivered"
-                    ? "#64748b"
-                    : "#d1d5db",
-              }}
-            />
-          )}
-        </Box>
-      </Box>
-    </Box>
-  );
-};
-
-// Quick action buttons component
 const QuickActionButtons = ({
   onActionClick,
 }: {
@@ -307,7 +163,6 @@ const QuickActionButtons = ({
 
 const ChatWindow = () => {
   const selectedThread = useSelectedThread();
-  //   const messages = useMessages(selectedThread?.id || null);
   const { messages, sendMessage } = useChatStore();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [messageInput, setMessageInput] = useState("");
@@ -316,7 +171,6 @@ const ChatWindow = () => {
     ? messages[selectedThread.id] || []
     : [];
 
-  // Scroll to bottom when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [threadMessages]);

@@ -8,7 +8,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemSecondaryAction,
   IconButton,
   Dialog,
   DialogTitle,
@@ -28,13 +27,11 @@ import {
   useNotes,
   useSelectedThreadId,
 } from "../../hooks/useChatStore";
-// import { useChatContext } from "@/store/chat-store";
 
 export function RightPanel() {
   const selectedThreadId = useSelectedThreadId();
   const notes = useNotes();
   const currentCustomer = useCurrentCustomer();
-  // const { currentCustomer, notes, addNote, deleteNote } = useChatContext();
   const [showAddAttribute, setShowAddAttribute] = useState(false);
   const [newAttributeKey, setNewAttributeKey] = useState("");
   const [newAttributeValue, setNewAttributeValue] = useState("");
@@ -47,13 +44,6 @@ export function RightPanel() {
       setShowAddAttribute(false);
     }
   };
-
-  // const handleAddNote = () => {
-  //   if (newNote.trim()) {
-  //     addNote(newNote);
-  //     setNewNote("");
-  //   }
-  // };
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString("en-US", {
@@ -78,7 +68,6 @@ export function RightPanel() {
         flexDirection: "column",
       }}
     >
-      {/* Header */}
       <Box
         sx={{
           p: 2.6,
@@ -102,7 +91,6 @@ export function RightPanel() {
         </IconButton>
       </Box>
 
-      {/* Customer Information */}
       <Box sx={{ p: 2 }}>
         <Box sx={{ mb: 2 }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
@@ -203,7 +191,6 @@ export function RightPanel() {
 
       <Divider />
 
-      {/* Notes Section */}
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
         <Box sx={{ p: 2, borderBottom: "1px solid #e2e8f0" }}>
           <Typography
@@ -301,22 +288,16 @@ export function RightPanel() {
                     </Box>
                   }
                 />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    size="small"
-                    // onClick={() => deleteNote(note.id)}
-                    sx={{ color: "#6b7280" }}
-                  >
-                    <MoreVert fontSize="small" />
-                  </IconButton>
-                </ListItemSecondaryAction>
+
+                <IconButton size="small" sx={{ color: "#6b7280" }}>
+                  <MoreVert fontSize="small" />
+                </IconButton>
               </ListItem>
             ))}
           </List>
         </Box>
       </Box>
 
-      {/* Add Attribute Dialog */}
       <Dialog
         open={showAddAttribute}
         onClose={() => setShowAddAttribute(false)}

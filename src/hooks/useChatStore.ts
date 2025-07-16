@@ -45,9 +45,8 @@ interface ChatState {
   notes: Note[];
   threads: ChatThread[];
   selectedThreadId: string | null;
-  messages: Record<string, ChatMessage[]>; // Messages organized by threadId
+  messages: Record<string, ChatMessage[]>;
   currentCustomer: Customer;
-  // Actions
   selectThread: (threadId: string) => void;
   addThread: (thread: ChatThread) => void;
   updateThread: (threadId: string, updates: Partial<ChatThread>) => void;
@@ -59,13 +58,12 @@ interface ChatState {
   addAttribute: (key: string, value: string) => void;
 }
 
-// Mock data for initial state
 const initialThreads: ChatThread[] = [
   {
     id: "1",
     customerName: "John Doe",
     lastMessage: "I need help with my order",
-    timestamp: new Date(Date.now() - 1000 * 60 * 5), // 5 minutes ago
+    timestamp: new Date(Date.now() - 1000 * 60 * 5),
     unread: true,
     channel: "WhatsApp",
     status: "open",
@@ -75,7 +73,7 @@ const initialThreads: ChatThread[] = [
     id: "2",
     customerName: "Jane Smith",
     lastMessage: "When will my package arrive?",
-    timestamp: new Date(Date.now() - 1000 * 60 * 30), // 30 minutes ago
+    timestamp: new Date(Date.now() - 1000 * 60 * 30),
     unread: false,
     channel: "SMS",
     status: "paused",
@@ -93,7 +91,6 @@ const initialThreads: ChatThread[] = [
   },
 ];
 
-// Mock messages for each thread
 const initialMessages: Record<string, ChatMessage[]> = {
   "1": [
     {
@@ -293,13 +290,10 @@ export const useChatStore = create<ChatState>((set) => ({
         status: "sending",
       };
 
-      // Update messages
       const updatedMessages = {
         ...state.messages,
         [threadId]: [...(state.messages[threadId] || []), newMessage],
       };
-
-      // Update thread's last message
       const updatedThreads = state.threads.map((thread) =>
         thread.id === threadId
           ? {
@@ -328,7 +322,6 @@ export const useChatStore = create<ChatState>((set) => ({
     })),
 }));
 
-// Selector hooks for easier access
 export const useThreads = () => useChatStore((state) => state.threads);
 export const useSelectedThreadId = () =>
   useChatStore((state) => state.selectedThreadId);
@@ -339,12 +332,5 @@ export const useSelectedThread = () => {
 };
 
 export const useNotes = () => useChatStore((state) => state.notes);
-export const useCurrentCustomer = () => useChatStore((state) => state.currentCustomer);
-// export const useMessages = (threadId: string | null) =>
-//   useChatStore((state) => {
-//     if (!threadId) return [];
-//     return state.messages[threadId] || [];
-//   });
-export const useAddNote = () => useChatStore((state) => state.addNote);
-export const useDeleteNote = () => useChatStore((state) => state.deleteNote);
-export const useAddAttribute = () => useChatStore((state) => state.addAttribute);
+export const useCurrentCustomer = () =>
+  useChatStore((state) => state.currentCustomer);

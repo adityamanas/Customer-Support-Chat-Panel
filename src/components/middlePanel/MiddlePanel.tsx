@@ -14,7 +14,6 @@ const MiddlePanel = () => {
         backgroundColor: "#f8fafc",
       }}
     >
-      {/* Thread List - Left Side */}
       <Box
         sx={{
           width: selectedThreadId ? 350 : "100%",
@@ -25,8 +24,6 @@ const MiddlePanel = () => {
       >
         <ChatThreadList />
       </Box>
-
-      {/* Chat Window - Right Side */}
       {selectedThreadId && (
         <Box sx={{ flex: 1 }}>
           <ChatWindow />

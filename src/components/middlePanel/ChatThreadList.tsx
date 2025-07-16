@@ -16,15 +16,7 @@ import {
   useSelectedThreadId,
   useChatStore,
 } from "../../hooks/useChatStore";
-import {
-  WhatsApp,
-  Sms,
-  Instagram,
-  Language,
-  FiberManualRecord,
-  FilterList,
-  ArrowBack,
-} from "@mui/icons-material";
+import { FiberManualRecord, FilterList, ArrowBack } from "@mui/icons-material";
 
 const formatTimestamp = (date: Date): string => {
   const now = new Date();
@@ -41,23 +33,6 @@ const formatTimestamp = (date: Date): string => {
   return date.toLocaleDateString();
 };
 
-// Helper function to get channel icon
-const getChannelIcon = (channel: string) => {
-  switch (channel) {
-    case "WhatsApp":
-      return <WhatsApp sx={{ color: "#25D366" }} />;
-    case "SMS":
-      return <Sms sx={{ color: "#2563eb" }} />;
-    case "Instagram":
-      return <Instagram sx={{ color: "#E1306C" }} />;
-    case "Web":
-      return <Language sx={{ color: "#64748b" }} />;
-    default:
-      return <Language sx={{ color: "#64748b" }} />;
-  }
-};
-
-// Helper function to get status color
 const getStatusColor = (status: string) => {
   switch (status) {
     case "open":
@@ -107,7 +82,7 @@ const ChatThreadList = () => {
           </IconButton>
         )}
         <Typography variant="h6" sx={{ fontWeight: 600, color: "#111827" }}>
-          {"Conversations"}
+          Conversations
         </Typography>
       </Box>
 
@@ -220,7 +195,6 @@ const ChatThreadList = () => {
                   </Box>
                 }
                 secondary={
-                  // Remove the Box wrapper and use the Typography directly
                   <Typography
                     variant="body2"
                     color="text.primary"
@@ -232,7 +206,7 @@ const ChatThreadList = () => {
                       textOverflow: "ellipsis",
                       whiteSpace: "nowrap",
                       mb: 0.5,
-                      mt: 0.5, // Added the margin top that was on the Box
+                      mt: 0.5,
                     }}
                   >
                     {thread.lastMessage}
