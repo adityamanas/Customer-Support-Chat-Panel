@@ -1,3 +1,8 @@
+
+Design : 
+
+<img width="1049" height="693" alt="image" src="https://github.com/user-attachments/assets/49bd1007-5262-4549-b5a4-2c0afeaff0e4" />
+
 # Customer Support Chat Panel - Complete Assignment Brief
 
 ## **Objective**
@@ -249,8 +254,4 @@ When user types "/" in the message input:
 - **Efficient re-renders** with proper memoization
 - **Stream chunking** for large responses
 
-Special Note:  DO NOT USE AI TOOLS TO GENERATE OR WRITE CODE. 
 
-Design : 
-
-![image.png](attachment:24d76bca-0c6d-4784-aa42-7ccef0f491aa:image.png)
