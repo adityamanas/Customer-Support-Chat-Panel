@@ -1,0 +1,67 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vite build output
+dist/
+
+# Vite cache
+.vite/
+
+# Environment variables
+.env
+.env.*.local
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Mac system files
+.DS_Store
+
+# Log files
+*.log
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Optional: ignore local dev SSL certs if used
+*.pem
+*.key
+
+# Optional: .parcel-cache, if you're mixing with Parcel (unlikely for Vite)
+.parcel-cache/
+
+# Optional: typescript cache
+*.tsbuildinfo
+
+# Optional: eslint cache
+.eslintcache
+
+# Optional: Prettier log
+.prettierlog
+
+# Optional: Storybook files
+.out/
+.storybook-out/
+
+# Optional: Playwright test output
+test-results/
+playwright-report/
+
+# Optional: local firebase emulators
+.firebase/
+
+# Optional: local functions emulators
+.functions/
+
+# Optional: Tailwind JIT cache
+.tailwind-cache/
+
+# Optional: coverage
+coverage/
